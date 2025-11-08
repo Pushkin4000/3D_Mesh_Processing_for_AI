@@ -1,0 +1,39 @@
+
+======================================================================
+TASK 3: RECONSTRUCTION ERROR ANALYSIS - CONCLUSION
+======================================================================
+
+Summary Statistics:
+  Min-Max Normalization:
+    • Mean MSE: 0.00000039
+    • Mean MAE: 0.00043621
+
+  Unit Sphere Normalization:
+    • Mean MSE: 0.00000111
+    • Mean MAE: 0.00083986
+
+Analysis:
+
+  Min-Max normalization consistently resulted in lower reconstruction 
+    errors (MSE ≈ 0.000000) compared to Unit Sphere normalization.
+
+  • Min-Max achieves 64.9% lower MSE on average
+  • This suggests axis-independent scaling better preserves geometric detail
+    through quantization for this dataset
+
+Per-Axis Error Analysis:
+  • Y-axis showed slightly higher error (MSE: 0.00000047)
+  • This may be due to scale compression during normalization or
+    quantization bin distribution along this axis
+
+Quantization Quality:
+  • With 1024 bins, both methods preserve geometric detail well
+  • Average reconstruction error is very low (< 0.001 for most meshes)
+  • Minimal perceptual distortion expected in reconstructed meshes
+
+Recommendation:
+  • For this dataset, Min-Max normalization is recommended
+  • Error levels are acceptable for most 3D processing applications
+  • Consider using 2048 bins for even higher fidelity if needed
+
+======================================================================
