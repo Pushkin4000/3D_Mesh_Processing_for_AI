@@ -5,31 +5,51 @@ import os
 
 def load_and_analyze(filepath):
     #Initial print
-    print(f"\n{'='*50}")
+    print(f"\n{'='*30}")
     print(f"Analyzing: {os.path.basename(filepath)}")
-    print('='*50)
+    print('='*30)
 
     # Mesh loading
     mesh = trimesh.load(filepath)
-    vertices = mesh.vertices
+    vertices = np.array(mesh.vertices)  
+    faces = np.array(mesh.faces)
     
-    # Basic statistics
-    print(f"Number of vertices: {len(vertices)}")
-    print(f"Number of faces: {len(mesh.faces)}")
     
-    # Per-axis statistics
-    for i, axis in enumerate(['X', 'Y', 'Z']):
+    num_vertices = vertices.shape[0]
+    num_faces = faces.shape[0]
+    
+    print(f"Number of vertices: {num_vertices}")
+    print(f"Number of faces: {num_faces}")
+    
+    #per-axis statistics
+    axis_names = np.array(['X', 'Y', 'Z'])
+    mins = np.min(vertices, axis=0)
+    maxs = np.max(vertices, axis=0)
+    means = np.mean(vertices, axis=0)
+    stds = np.std(vertices, axis=0)
+    
+    
+    for i, axis in enumerate(axis_names):
         print(f"\n{axis}-axis:")
-        print(f"  Min: {vertices[:, i].min():.4f}")
-        print(f"  Max: {vertices[:, i].max():.4f}")
-        print(f"  Mean: {vertices[:, i].mean():.4f}")
-        print(f"  Std Dev: {vertices[:, i].std():.4f}")
+        print(f"  Min: {mins[i]:.4f}")
+        print(f"  Max: {maxs[i]:.4f}")
+        print(f"  Mean: {means[i]:.4f}")
+        print(f"  Std Dev: {stds[i]:.4f}")
     
+    # Additional numpy-based analysis
+    print(f"\nBounding box dimensions:")
+    bbox_dims = maxs - mins
+    print(f"  Width (X): {bbox_dims[0]:.4f}")
+    print(f"  Depth (Y): {bbox_dims[1]:.4f}")
+    print(f"  Height (Z): {bbox_dims[2]:.4f}")
+    
+    print(f"\nMesh centroid: ({means[0]:.4f}, {means[1]:.4f}, {means[2]:.4f})")
+    
+    # Visualization                                
     fig = plt.figure(figsize=(10, 8))
     ax = fig.add_subplot(111, projection='3d')
     
-    ax.plot_trisurf(mesh.vertices[:, 0], mesh.vertices[:, 1], mesh.vertices[:, 2],
-                    triangles=mesh.faces, cmap='viridis', alpha=0.8, edgecolor='none')
+    ax.plot_trisurf(vertices[:, 0], vertices[:, 1], vertices[:, 2], triangles=faces, cmap='viridis', alpha=0.8, edgecolor='none')
     
     ax.set_title(f'{os.path.basename(filepath)}')
     ax.set_xlabel('X')
@@ -42,7 +62,7 @@ def load_and_analyze(filepath):
     return mesh, vertices
 
 meshes = "meshes/"
-mesh_samples = [i for i in os.listdir(meshes) if i.endswith('.obj')]
+mesh_samples = np.array([i for i in os.listdir(meshes) if i.endswith('.obj')])
 
 print(f"Found {len(mesh_samples)} sample mesh files")
 
