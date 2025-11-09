@@ -19,11 +19,11 @@ Method:
   • Measured consistency of scale and centroid across transformations
 
 Results:
-  • Average Scale Standard Deviation: 1.725982e-15
-  • Average MSE Standard Deviation: 2.580292e-08
+  • Average Scale Standard Deviation: 1.634180e-15
+  • Average MSE Standard Deviation: 2.510151e-08
 
 **Conclusion - Part 1:**
-The exceptionally low standard deviation (1.725982e-15) confirms that
+The exceptionally low standard deviation (1.634180e-15) confirms that
 the Unit Sphere normalization is highly invariant to transformations. The
 reconstruction error remains consistent regardless of the mesh's orientation
 or position, validating the normalization's robustness.
@@ -40,13 +40,13 @@ Configuration:
   • Allocation: Based on local vertex density (KNN with k=10)
 
 Results:
-  • Average Uniform MSE:   0.00000113
-  • Average Adaptive MSE:  0.00000077
+  • Average Uniform MSE:   0.00000112
+  • Average Adaptive MSE:  0.00000076
 
 **Conclusion - Part 2:**
 ✓ Adaptive quantization was **SUCCESSFUL**.
 
-Adaptive quantization achieved 31.94% lower MSE compared to uniform
+Adaptive quantization achieved 31.99% lower MSE compared to uniform
 quantization. By allocating more quantization bins to geometrically dense
 regions, the adaptive method effectively:
   • Preserves fine details in complex areas
@@ -70,7 +70,7 @@ RECOMMENDATIONS
      - High geometric complexity variations
      - Detailed features in specific regions
      - Need for optimal detail preservation
-   → Provides 31.9% better reconstruction accuracy
+   → Provides 32.0% better reconstruction accuracy
 
 3. Parameter Tuning:
    • Base bins: 1024 (current)
