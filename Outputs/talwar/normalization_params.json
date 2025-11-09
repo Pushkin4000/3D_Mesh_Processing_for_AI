@@ -16,6 +16,4 @@
     ],
     "scale": 0.7002599292222368,
     "bins": 1024,
-    "shifted_mm": false,
-    "shifted_us": true
-}
+    "shifted_mm": 

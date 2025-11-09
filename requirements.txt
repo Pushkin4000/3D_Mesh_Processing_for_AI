@@ -3,4 +3,4 @@ pandas
 trimesh
 matplotlib
 scipy
-ipykernel 
+ipykernel
